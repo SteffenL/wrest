@@ -12,7 +12,8 @@ class WRestDeleteAction extends CAction
 	{
 		$model = $this->controller->getModel();
 		if ($model->delete()) {
-			$this->controller->sendResponse(200, array('id' => $model->id));
+			$pk = $model->getMetaData()->tableSchema->primaryKey;
+			$this->controller->sendResponse(200, array('id' => $model->$pk));
 		} else {
 			$this->controller->sendResponse(500);
 		}
